@@ -58,22 +58,29 @@ public class WorkoutManager {
         }
     }
 
-    public void getSuggestions(User user){
-        System.out.println("Here are some suggested workouts");
-        if(user.getWorkoutType() == 1){
-            for (FatLossWorkout workout : fatLossWorkouts) {
-                System.out.println(workout.displayWorkoutDetailsString());
-               System.out.println("");
-            }
-                }
-        else if(user.getWorkoutType() == 2){
-            for (MuscleGainWorkout workout : muscleGainWorkouts) {
-                System.out.println(workout.displayWorkoutDetailsString());
-                System.out.println("");
-            }
+    public void getSuggestions(User user) {
+        Random random = new Random();
+        System.out.println("Here is a suggested workout:");
 
+        if (user.getWorkoutType() == 1) {
+            if (!fatLossWorkouts.isEmpty()) {
+                int index = random.nextInt(fatLossWorkouts.size());
+                FatLossWorkout workout = fatLossWorkouts.get(index);
+                System.out.println(workout.displayWorkoutDetailsString());
+            } else {
+                System.out.println("No fat loss workouts to suggest.");
+            }
+        } else if (user.getWorkoutType() == 2) {
+            if (!muscleGainWorkouts.isEmpty()) {
+                int index = random.nextInt(muscleGainWorkouts.size());
+                MuscleGainWorkout workout = muscleGainWorkouts.get(index);
+                System.out.println(workout.displayWorkoutDetailsString());
+            } else {
+                System.out.println("No muscle gain workouts to suggest.");
+            }
+        } else {
+            System.out.println("Unrecognized workout type: " + user.getWorkoutType());
         }
-
     }
 
 

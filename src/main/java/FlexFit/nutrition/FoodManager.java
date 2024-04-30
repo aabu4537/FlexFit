@@ -2,6 +2,8 @@ package FlexFit.nutrition;
 import FlexFit.training.FatLossWorkout;
 import FlexFit.training.MuscleGainWorkout;
 import FlexFit.user.User;
+import java.util.Random;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,24 +58,26 @@ public class FoodManager {
         }
     }
 
-    public void getSuggestions(User user){
+    public void getSuggestions(User user) {
+        Random random = new Random();
+        System.out.println("Here is a suggested food:");
 
-        System.out.println("Here are some suggested foods");
-        if(user.getWorkoutType() == 1){
-            for (Food food : weightLossFoods) {
-                System.out.println(food.toString());
-                System.out.println("");
+        if (user.getWorkoutType() == 1) {
+            if (!weightLossFoods.isEmpty()) {
+                int index = random.nextInt(weightLossFoods.size());
+                System.out.println(weightLossFoods.get(index).toString());
+            } else {
+                System.out.println("No foods to suggest for weight loss.");
             }
-        }
-        else if(user.getWorkoutType() == 2){
-            for (Food food: muscleFoods) {
-                System.out.println(food.toString());
-                System.out.println("");
+        } else if (user.getWorkoutType() == 2) {
+            if (!muscleFoods.isEmpty()) {
+                int index = random.nextInt(muscleFoods.size());
+                System.out.println(muscleFoods.get(index).toString());
+            } else {
+                System.out.println("No foods to suggest for muscle gain.");
             }
-
-        }
-        else{
-            System.out.println(user.getWorkoutType());
+        } else {
+            System.out.println("Unrecognized workout type: " + user.getWorkoutType());
         }
     }
 }

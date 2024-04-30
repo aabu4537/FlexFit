@@ -4,10 +4,7 @@ import FlexFit.nutrition.FoodManager;
 import FlexFit.training.FatLossWorkout;
 import FlexFit.training.MuscleGainWorkout;
 import FlexFit.training.WorkoutManager;
-import FlexFit.user.Adult;
-import FlexFit.user.Child;
 import FlexFit.user.User;
-import FlexFit.nutrition.FoodManager;
 import FlexFit.nutrition.Food;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -90,14 +87,19 @@ public class Main {
         foods.addMuscleGrowthFood(leanBeef);
 
 
-        User user = new Adult();
+        User user = new User();
         System.out.println(user);
+
+
+
         user.promptUserType();
-        workouts.getSuggestions(user);
-        foods.getSuggestions(user);
+        Menu menu = new Menu( workouts, foods, user);
+
+        // Start the menu interaction
+        menu.displayMenu();
 
 
-
+        System.out.println("Nice work today, See you tomorrow!");
 
 
 

@@ -3,13 +3,14 @@ package FlexFit.user;
 import java.util.Scanner;
 
 
-public abstract class User {
+public class User {
     private String name;
-    private int weight;
+    private double weight;
     private double height;
     private String sex;
     private double bmi;
-    private int age;
+    private double maintenanceCalories;
+    private double age;
 
     private int workoutType;
 
@@ -24,6 +25,7 @@ public abstract class User {
     public User() {
         promptUserInfo();
         calculateBMI();
+        calculateMaintenanceCalories();
     }
 
     public void promptUserInfo() {
@@ -48,6 +50,14 @@ public abstract class User {
 
     }
 
+    public void calculateMaintenanceCalories(){
+        if (this.sex.equals("Male")) {
+            this.maintenanceCalories = (66 + (6.23 * weight)) + (12.7 * height) - (6.8 * age);
+        } else {
+            this.maintenanceCalories = (655 + (4.3 * weight)) + (4.7 * height) - (4.7 * age);
+        }
+    }
+
     public void promptUserType() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Is your goal to lose weight or gain muscle (1: lose weight, 2: gain muscle?:");
@@ -57,6 +67,10 @@ public abstract class User {
 
     public int getWorkoutType(){
         return workoutType;
+    }
+
+    public double getMaintenanceCalories(){
+        return maintenanceCalories;
     }
 
 
@@ -70,11 +84,11 @@ public abstract class User {
         return name;
     }
 
-    public int getWeight() {
+    public double getWeight() {
         return weight;
     }
 
-    public int getAge() {
+    public double getAge() {
         return age;
     }
 
@@ -100,6 +114,7 @@ public abstract class User {
                 ", height=" + height +
                 ", sex='" + sex + '\'' +
                 ", BMI=" + String.format("%.2f", bmi) +
+                ", Maintenance Calories=" + String.format("%.2f", maintenanceCalories) +
                 '}';
     }
 
