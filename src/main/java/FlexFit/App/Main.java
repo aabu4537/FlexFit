@@ -68,7 +68,7 @@ public class Main {
         Food oats = new Food("Oats", 389, 66.3, 6.9, 16.9); // per 100 grams
         Food greekYogurt = new Food("Greek Yogurt", 59, 3.6, 0.4, 10); // per 100 grams
         Food apples = new Food("Apple", 52, 14, 0.2, 0.3); // per 100 grams
-        FoodManager foods = new FoodManager();
+        FoodManager foods = FoodManager.getInstance();
 
         foods.addWeightLossFood(broccoli);
         foods.addWeightLossFood(chickenBreast);

@@ -12,7 +12,7 @@ public class foodTest {
 
     @BeforeEach
     void setUp() {
-        manager = new FoodManager();
+        manager = FoodManager.getInstance();
         chickenBreast = new Food("Chicken Breast", 165, 0, 3.6, 31);
         apple = new Food("Apple", 95, 25, 0.3, 0.5);
     }

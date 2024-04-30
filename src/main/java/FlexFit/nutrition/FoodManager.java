@@ -2,57 +2,72 @@ package FlexFit.nutrition;
 import FlexFit.training.FatLossWorkout;
 import FlexFit.training.MuscleGainWorkout;
 import FlexFit.user.User;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 
 
-import java.util.ArrayList;
-import java.util.List;
 public class FoodManager {
-    private List<Food> muscleFoods;
-    private List <Food> weightLossFoods;
+    // Static variable to hold the single instance of FoodManager
+    private static FoodManager instance;
 
-    public FoodManager() {
-        this.muscleFoods = new ArrayList<>();
-        this.weightLossFoods = new ArrayList<>();
+    private List<Food> muscleFoods = new ArrayList<>();
+    private List<Food> weightLossFoods = new ArrayList<>();
+
+    // Private constructor to prevent external instantiation
+    private FoodManager() {
     }
 
-    // Method to add muscle growth food
+    // Public method to get the instance of FoodManager
+    public static FoodManager getInstance() {
+        if (instance == null) {
+            synchronized (FoodManager.class) {
+                if (instance == null) {
+                    instance = new FoodManager();
+                }
+            }
+        }
+        return instance;
+    }
+
     public void addMuscleGrowthFood(Food food) {
-        muscleFoods.add(food);
+        this.muscleFoods.add(food);
     }
 
-    // Method to add weight loss food
     public void addWeightLossFood(Food food) {
-        weightLossFoods.add(food);
+        this.weightLossFoods.add(food);
     }
 
-    // Method to get all muscle growth foods
     public List<Food> getMuscleGrowthFoods() {
-        return new ArrayList<>(muscleFoods); // Return a copy of the list to prevent external modifications
+        return new ArrayList<>(this.muscleFoods);
     }
 
-    // Method to get all weight loss foods
     public List<Food> getWeightLossFoods() {
-        return new ArrayList<>(weightLossFoods); // Return a copy of the list to prevent external modifications
+        return new ArrayList<>(this.weightLossFoods);
     }
 
-    // Method to list all foods for muscle growth
     public void listMuscleGrowthFoods() {
-        if (muscleFoods.isEmpty()) {
+        if (this.muscleFoods.isEmpty()) {
             System.out.println("No muscle growth foods added yet.");
         } else {
-            for (Food food : muscleFoods) {
+            Iterator<Food> var1 = this.muscleFoods.iterator();
+
+            while(var1.hasNext()) {
+                Food food = var1.next();
                 System.out.println(food);
             }
         }
     }
 
-    // Method to list all foods for weight loss
     public void listWeightLossFoods() {
-        if (weightLossFoods.isEmpty()) {
+        if (this.weightLossFoods.isEmpty()) {
             System.out.println("No weight loss foods added yet.");
         } else {
-            for (Food food : weightLossFoods) {
+            Iterator<Food> var1 = this.weightLossFoods.iterator();
+
+            while(var1.hasNext()) {
+                Food food = var1.next();
                 System.out.println(food);
             }
         }
@@ -61,18 +76,18 @@ public class FoodManager {
     public void getSuggestions(User user) {
         Random random = new Random();
         System.out.println("Here is a suggested food:");
-
+        int index;
         if (user.getWorkoutType() == 1) {
-            if (!weightLossFoods.isEmpty()) {
-                int index = random.nextInt(weightLossFoods.size());
-                System.out.println(weightLossFoods.get(index).toString());
+            if (!this.weightLossFoods.isEmpty()) {
+                index = random.nextInt(this.weightLossFoods.size());
+                System.out.println(this.weightLossFoods.get(index).toString());
             } else {
                 System.out.println("No foods to suggest for weight loss.");
             }
         } else if (user.getWorkoutType() == 2) {
-            if (!muscleFoods.isEmpty()) {
-                int index = random.nextInt(muscleFoods.size());
-                System.out.println(muscleFoods.get(index).toString());
+            if (!this.muscleFoods.isEmpty()) {
+                index = random.nextInt(this.muscleFoods.size());
+                System.out.println(this.muscleFoods.get(index).toString());
             } else {
                 System.out.println("No foods to suggest for muscle gain.");
             }
