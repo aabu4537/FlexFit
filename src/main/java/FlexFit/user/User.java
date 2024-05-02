@@ -5,7 +5,7 @@ import FlexFit.App.Menu;
 import java.util.Scanner;
 
 
-public class User extends Menu {
+public class User{
     private String name;
     private double weight;
     private double height;
@@ -18,11 +18,6 @@ public class User extends Menu {
 
     private String AorC;
 
-    private Scanner scanner; // Injected dependency
-
-    public User(Scanner scanner) {
-        this.scanner = scanner;
-    }
 
     public User() {
         promptUserInfo();
