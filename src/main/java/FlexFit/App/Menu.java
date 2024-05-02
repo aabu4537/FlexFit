@@ -5,11 +5,15 @@ import FlexFit.nutrition.DailyNutrients;
 
 
 import java.util.Scanner;
+
+import FlexFit.nutrition.Food;
 import FlexFit.nutrition.FoodManager;
+import FlexFit.training.FatLossWorkout;
+import FlexFit.training.MuscleGainWorkout;
 import FlexFit.training.WorkoutManager;
 import FlexFit.user.User;
 
-public class Menu {
+public class Menu extends Main {
     private Scanner scanner;
     private DailyNutrients dailyNutrients;
     private WorkoutManager workoutManager;
@@ -69,7 +73,7 @@ public class Menu {
     }
 
     public int differenceFromMaintenence(){
-        return (int) (dailyNutrients.getTotalCaloriesEaten() - dailyNutrients.getCaloriesBurned() );
+        return (int) (dailyNutrients.getTotalCaloriesEaten() - dailyNutrients.getCaloriesBurned() - user.getMaintenanceCalories());
     }
 
     private void option1() {

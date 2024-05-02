@@ -1,4 +1,5 @@
 import FlexFit.training.FatLossWorkout;
+import FlexFit.training.WorkoutFactory;
 import FlexFit.training.WorkoutManager;
 import FlexFit.training.MuscleGainWorkout;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,6 +18,8 @@ public class trainingTest {
     private MuscleGainWorkout muscleGainWorkout;
 
     private WorkoutManager workoutManager;
+    private ByteArrayOutputStream outContent;
+    private PrintStream originalOut;
 
 
 
@@ -26,6 +29,9 @@ public class trainingTest {
         workoutManager = new WorkoutManager();
         fatLossWorkout = new FatLossWorkout("Morning Run", 30, "Running", "High", 300);
         muscleGainWorkout = new MuscleGainWorkout("Leg Day", 60, "Legs", 4, 12, 120.0);
+        outContent = new ByteArrayOutputStream();
+        originalOut = System.out;
+        System.setOut(new PrintStream(outContent));
     }
 
     @Test
@@ -120,6 +126,64 @@ public class trainingTest {
 
         System.setOut(System.out);
     }
+
+    @Test
+    void testAddingMultipleWorkouts() {
+        WorkoutManager manager = new WorkoutManager();
+        manager.addFatLossWorkout(fatLossWorkout);
+        manager.addFatLossWorkout(new FatLossWorkout("Cycling", 45, "Biking", "Moderate", 350));
+        assertEquals(2, manager.getFatLossWorkouts().size(), "Should have two fat loss workouts stored");
+
+        manager.addMuscleGainWorkouts(muscleGainWorkout);
+        manager.addMuscleGainWorkouts(new MuscleGainWorkout("Chest Day", 55, "Chest", 5, 10, 150.0));
+        assertEquals(2, manager.getMuscleGainWorkouts().size(), "Should have two muscle gain workouts stored");
+    }
+
+    @Test
+    void testAddAndRetrieveMuscleGainWorkouts() {
+        workoutManager.addMuscleGainWorkouts(muscleGainWorkout);
+        assertEquals(1, workoutManager.getMuscleGainWorkouts().size(), "Should have added one muscle gain workout");
+        assertEquals(muscleGainWorkout, workoutManager.getMuscleGainWorkouts().get(0), "The added workout should be retrievable");
+    }
+
+    @Test
+    void testAddAndRetrieveFatLossWorkouts() {
+        workoutManager.addFatLossWorkout(fatLossWorkout);
+        assertEquals(1, workoutManager.getFatLossWorkouts().size(), "Should have added one fat loss workout");
+        assertEquals(fatLossWorkout, workoutManager.getFatLossWorkouts().get(0), "The added workout should be retrievable");
+    }
+
+    @Test
+    void testCreateMuscleGainWorkout() {
+        // Create a muscle gain workout using the factory
+        MuscleGainWorkout workout = WorkoutFactory.createMuscleGainWorkout("Bench Press", 45, "Chest", 3, 10, 80.0);
+
+        // Assert that all properties are set correctly
+        assertEquals("Bench Press", workout.getWorkoutName());
+        assertEquals(45, workout.getDurationInMinutes());
+        assertEquals("Chest", workout.getMuscleGroup());
+        assertEquals(3, workout.getSets());
+        assertEquals(10, workout.getRepsPerSet());
+        assertEquals(80.0, workout.getWeightUsed(), 0.001, "Weight used should match the input value");
+    }
+
+    @Test
+    void testCreateFatLossWorkout() {
+        // Create a fat loss workout using the factory
+        FatLossWorkout workout = WorkoutFactory.createFatLossWorkout("Morning Jog", 30, "Running", "Low", 250);
+
+        // Assert that all properties are set correctly
+        assertEquals("Morning Jog", workout.getWorkoutName());
+        assertEquals(30, workout.getDurationInMinutes());
+        assertEquals("Running", workout.getCardioType());
+        assertEquals("Low", workout.getIntensityLevel());
+        assertEquals(250, workout.getCaloriesBurned());
+    }
+
+
+
+
+
 
 
 

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class WorkoutManager {
+public class WorkoutManager extends WorkoutFactory {
     private List<FatLossWorkout> fatLossWorkouts;
     private List<MuscleGainWorkout> muscleGainWorkouts;
     private Random random;  // Random object for selecting workouts

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Random;
 
 
-public class FoodManager {
+public class FoodManager extends FoodFactory {
     // Static variable to hold the single instance of FoodManager
     private static FoodManager instance;
 

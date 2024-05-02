@@ -1,6 +1,6 @@
 package FlexFit.Observer;
 
-public class LoggerObserver implements iObserver {
+public abstract class LoggerObserver implements iObserver, Subject {
     @Override
     public void update() {
         System.out.println("Logger: Daily Nutrients updated.");

@@ -1,6 +1,6 @@
 package FlexFit.training;
 
-public class MuscleGainWorkout {
+public class MuscleGainWorkout extends WorkoutManager {
     // Attributes to store information about the workout
     private String workoutName;
     private int durationInMinutes;

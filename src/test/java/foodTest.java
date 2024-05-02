@@ -1,4 +1,5 @@
 import FlexFit.nutrition.Food;
+import FlexFit.nutrition.FoodFactory;
 import FlexFit.nutrition.FoodManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -52,6 +53,28 @@ public class foodTest {
         String expectedOutput = "Food: Chicken Breast\nCalories: 165\nCarbs: 0.0g\nFats: 3.6g\nProteins: 31.0g";
 
         assertEquals(expectedOutput, food.toString());
+    }
+
+    @Test
+    void testCreateFood() {
+        // Create an instance of FoodFactory
+        FoodFactory factory = new FoodFactory();
+
+        // Use the factory to create a Food object
+        String name = "Banana";
+        int calories = 89;
+        double carbs = 22.84;
+        double fats = 0.33;
+        double proteins = 1.09;
+
+        Food food = factory.createFood(name, calories, carbs, fats, proteins);
+
+        // Assert that the Food object's properties match the expected values
+        assertEquals(name, food.getName(), "Food name should match input");
+        assertEquals(calories, food.getCalories(), "Calorie count should match input");
+        assertEquals(carbs, food.getCarbs(), 0.001, "Carbohydrate content should match input");
+        assertEquals(fats, food.getFats(), 0.001, "Fat content should match input");
+        assertEquals(proteins, food.getProteins(), 0.001, "Protein content should match input");
     }
 
 

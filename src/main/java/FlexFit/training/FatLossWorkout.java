@@ -1,6 +1,6 @@
 package FlexFit.training;
 
-public class FatLossWorkout {
+public class FatLossWorkout extends WorkoutManager {
 
         // Attributes to store information about the cardio workout
         private String workoutName;

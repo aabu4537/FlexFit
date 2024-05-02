@@ -1,9 +1,11 @@
 package FlexFit.user;
 
+import FlexFit.App.Menu;
+
 import java.util.Scanner;
 
 
-public class User {
+public class User extends Menu {
     private String name;
     private double weight;
     private double height;
@@ -52,9 +54,9 @@ public class User {
 
     public void calculateMaintenanceCalories(){
         if (this.sex.equals("Male")) {
-            this.maintenanceCalories = (66 + (6.23 * weight)) + (12.7 * height) - (6.8 * age);
+            this.maintenanceCalories = (int) (66 + (6.23 * weight)) + (12.7 * height) - (6.8 * age);
         } else {
-            this.maintenanceCalories = (655 + (4.3 * weight)) + (4.7 * height) - (4.7 * age);
+            this.maintenanceCalories = (int) (655 + (4.3 * weight)) + (4.7 * height) - (4.7 * age);
         }
     }
 
@@ -64,6 +66,7 @@ public class User {
         this.workoutType = scanner.nextInt();
 
     }
+
 
     public int getWorkoutType(){
         return workoutType;
@@ -104,6 +107,22 @@ public class User {
         return bmi;
     }
 
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    public void setAge(double age) {
+        this.age = age;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
 
     @Override
     public String toString() {
@@ -119,4 +138,7 @@ public class User {
     }
 
 
+    public void setName(String name) {
+        this.name = name;
+    }
 }
